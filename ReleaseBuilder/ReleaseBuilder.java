@@ -45,7 +45,7 @@ public class ReleaseBuilder {
 		System.out.println("| Created by Endre Varadi |");
 		System.out.println("---------------------------");
 		System.out.println();
-
+		
 		try {
 			parseArguments(args);
 		} catch (Exception e) {
@@ -53,7 +53,7 @@ public class ReleaseBuilder {
 			return;
 		}
 
-		Path path = new File(System.getProperty("user.dir")).toPath();
+		Path path = new File(ReleaseBuilder.class.getProtectionDomain().getCodeSource().getLocation().getPath()).toPath();
 		Path config = path.resolve("config/");
 		Path eclipses = path.resolve("eclipses/");
 		Path releases = path.resolve("releases/");
