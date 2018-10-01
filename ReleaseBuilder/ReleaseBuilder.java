@@ -53,12 +53,13 @@ public class ReleaseBuilder {
 			return;
 		}
 
-		Path path = new File(ReleaseBuilder.class.getProtectionDomain().getCodeSource().getLocation().getPath()).toPath();
-		Path config = path.resolve("config/");
-		Path eclipses = path.resolve("eclipses/");
-		Path releases = path.resolve("releases/");
-		Path projects = path.resolve("projects/");
-		Path tmp = path.resolve("tmp/");
+		Path localPath = new File(ReleaseBuilder.class.getProtectionDomain().getCodeSource().getLocation().getPath()).toPath();
+		Path runPath = new File(System.getProperty("user.dir")).toPath();
+		Path config = localPath.resolve("config/");
+		Path eclipses = localPath.resolve("eclipses/");
+		Path releases = localPath.resolve("releases/");
+		Path projects = localPath.resolve("projects/");
+		Path tmp = localPath.resolve("tmp/");
 
 		if (tmp.toFile().exists()) {
 			buildStep("Cleaning after previous build");
@@ -139,8 +140,8 @@ public class ReleaseBuilder {
 			Files.delete(importerPluginInstalled);
 
 			if (updatesite != null) {
-				buildStep("Installing updatesite");
-				Path updatesiteSource = path.resolve(updatesite);
+				buildStep("Installing updatesite ");
+				Path updatesiteSource = runPath.resolve(updatesite);
 				Path updatesitePluginsSource = updatesiteSource.resolve("plugins");
 
 				for (File file : updatesitePluginsSource.toFile().listFiles()) {
@@ -150,7 +151,7 @@ public class ReleaseBuilder {
 
 			if (document != null) {
 				buildStep("Copying document " + document.getFileName());
-				Path documentSource = path.resolve(document);
+				Path documentSource = runPath.resolve(document);
 				Path documentDestination = eclipse.resolve(document.getFileName());
 				Files.copy(documentSource, documentDestination);
 			}
