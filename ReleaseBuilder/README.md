@@ -11,7 +11,7 @@ The *eclipse.ini* also can be edited to prepare for the tests.
 ### run:
 `java -cp . ReleaseBuilder`
 #### To see the available launch options, use the -h launch parameter
-### Step it takes
+### Steps it takes
 - grab an Eclipse distribution from the **eclipses/** dir
 - copy into the **tmp/** temporary folder
 - edit **eclipse.ini**
